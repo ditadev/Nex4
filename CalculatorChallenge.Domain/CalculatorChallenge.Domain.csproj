@@ -6,8 +6,4 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\CalculatorChallenge.Domain\CalculatorChallenge.Domain.csproj" />
-    </ItemGroup>
-
 </Project>

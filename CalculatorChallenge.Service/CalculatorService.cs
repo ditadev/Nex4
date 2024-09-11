@@ -1,8 +1,10 @@
-﻿namespace CalculatorChallenge.Service;
+﻿using CalculatorChallenge.Domain;
+
+namespace CalculatorChallenge.Service;
 
 public class CalculatorService(string delimiter = ",", bool denyNegatives = true, int upperBound = 1000) : ICalculatorService
 {
-    public (int result, string formula) Add(string input)
+    public (int result, string formula) Add(string input, OperationType operation)
     {
         if (string.IsNullOrEmpty(input))
             return (0, "0");
@@ -33,7 +35,7 @@ public class CalculatorService(string delimiter = ",", bool denyNegatives = true
         var numbers = input.Split(delimiters.ToArray(), StringSplitOptions.None);
         var formula = new List<string>();
         var negatives = new List<int>();
-        int sum = 0;
+        int result = operation == OperationType.Multiply ? 1 : 0;
         foreach (var number in numbers)
         {
             if (int.TryParse(number, out int parsedNumber))
@@ -43,7 +45,15 @@ public class CalculatorService(string delimiter = ",", bool denyNegatives = true
 
                 if (parsedNumber <= upperBound)
                 {
-                    sum += parsedNumber;
+                    if (operation == OperationType.Add)
+                        result += parsedNumber;
+                    else if (operation == OperationType.Subtract)
+                        result -= parsedNumber;
+                    else if (operation == OperationType.Multiply)
+                        result *= parsedNumber;
+                    else if (operation == OperationType.Divide && parsedNumber != 0)
+                        result /= parsedNumber;
+
                     formula.Add(parsedNumber.ToString());
                 }
                 else
@@ -60,7 +70,7 @@ public class CalculatorService(string delimiter = ",", bool denyNegatives = true
         if (negatives.Any())
             throw new InvalidOperationException("Negatives not allowed: " + string.Join(",", negatives));
 
-        string resultFormula = string.Join("+", formula) + " = " + sum;
-        return (sum, resultFormula);
+        string resultFormula = string.Join(operation == OperationType.Add ? "+" : operation == OperationType.Subtract ? "-" : operation == OperationType.Multiply ? "*" : "/", formula) + " = " + result;
+        return (result, resultFormula);
     }
 }

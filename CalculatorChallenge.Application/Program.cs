@@ -1,4 +1,5 @@
-﻿using CalculatorChallenge.Service;
+﻿using CalculatorChallenge.Domain;
+using CalculatorChallenge.Service;
 using Microsoft.Extensions.DependencyInjection;
 
 var serviceProvider = new ServiceCollection()
@@ -11,14 +12,22 @@ var serviceProvider = new ServiceCollection()
 
 var calculator = serviceProvider.GetService<ICalculatorService>();
 
-Console.WriteLine("Enter numbers to add, or press Ctrl+C to exit:");
+Console.WriteLine("Enter operation type (Add, Subtract, Multiply, Divide):");
+string operationTypeInput = Console.ReadLine();
+if (!Enum.TryParse(operationTypeInput, ignoreCase: true, out OperationType operation))
+{
+    Console.WriteLine("Invalid operation.");
+    return;
+}
+
+Console.WriteLine("Enter numbers to calculate, or press Ctrl+C to exit:");
 
 while (true)
 {
     try
     {
         string input = Console.ReadLine();
-        var (result, formula) = calculator.Add(input);
+        var (result, formula) = calculator.Add(input, operation);
         Console.WriteLine($"Result: {result} | Formula: {formula}");
     }
     catch (Exception ex)

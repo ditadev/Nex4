@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculatorChallenge.Service
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculatorChallenge.UnitTests", "CalculatorChallenge.UnitTests\CalculatorChallenge.UnitTests.csproj", "{93C53471-88F1-4736-A859-7F5008603713}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculatorChallenge.Domain", "CalculatorChallenge.Domain\CalculatorChallenge.Domain.csproj", "{720DD9C5-3169-4217-AD10-3828195E3B7E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{93C53471-88F1-4736-A859-7F5008603713}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93C53471-88F1-4736-A859-7F5008603713}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93C53471-88F1-4736-A859-7F5008603713}.Release|Any CPU.Build.0 = Release|Any CPU
+		{720DD9C5-3169-4217-AD10-3828195E3B7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{720DD9C5-3169-4217-AD10-3828195E3B7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{720DD9C5-3169-4217-AD10-3828195E3B7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{720DD9C5-3169-4217-AD10-3828195E3B7E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
