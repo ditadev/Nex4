@@ -10,7 +10,7 @@ public class CalculatorChallengeShould
     [Fact]
     public void Add_MultipleNumbers_ReturnsSum()
     {
-        var result = _calculatorService.Add("1,2,3,4,5");
-        result.Should().Be(15);
+        var result = _calculatorService.Add("1\n2,3");
+        result.Should().Be(6);
     }
 }

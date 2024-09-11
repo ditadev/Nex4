@@ -7,7 +7,8 @@ public class CalculatorService
         if (string.IsNullOrEmpty(input))
             return 0;
 
-        var numbers = input.Split(',');
+        var delimiters = new[] { ",", "\n" };
+        var numbers = input.Split(delimiters, StringSplitOptions.None);
 
         int sum = 0;
         foreach (var number in numbers)
