@@ -1,6 +1,6 @@
 ﻿namespace CalculatorChallenge.Service;
 
-public class CalculatorService(string delimiter = ",", bool denyNegatives = true, int upperBound = 1000)
+public class CalculatorService(string delimiter = ",", bool denyNegatives = true, int upperBound = 1000) : ICalculatorService
 {
     public (int result, string formula) Add(string input)
     {

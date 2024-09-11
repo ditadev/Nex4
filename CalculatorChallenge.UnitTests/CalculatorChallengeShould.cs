@@ -5,7 +5,7 @@ namespace CalculatorChallenge.UnitTests;
 
 public class CalculatorChallengeShould
 {
-    private readonly CalculatorService _calculatorService = new();
+    private readonly ICalculatorService _calculatorService = new CalculatorService();
 
     [Fact]
     public void Add_DisplayFormula_ReturnsCorrectFormula()

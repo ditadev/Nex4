@@ -1,20 +1,17 @@
 ﻿using CalculatorChallenge.Service;
+using Microsoft.Extensions.DependencyInjection;
 
-var delimiter = ",";
-var denyNegatives = false;
-var upperBound = 1000;
+var serviceProvider = new ServiceCollection()
+    .AddSingleton<ICalculatorService, CalculatorService>(provider => new CalculatorService(
+        delimiter: args.Length >= 1 ? args[0] : ",",
+        denyNegatives: args.Length < 2 || !bool.TryParse(args[1], out bool toggleNegatives) || toggleNegatives,
+        upperBound: args.Length >= 3 && int.TryParse(args[2], out int bound) ? bound : 1000
+    ))
+    .BuildServiceProvider();
 
-if (args.Length >= 1)
-    delimiter = args[0];
+var calculator = serviceProvider.GetService<ICalculatorService>();
 
-if (args.Length >= 2 && bool.TryParse(args[1], out bool toggleNegatives))
-    denyNegatives = toggleNegatives;
-
-if (args.Length >= 3 && int.TryParse(args[2], out int bound))
-    upperBound = bound;
-
-var calculator = new CalculatorService(delimiter, denyNegatives, upperBound);
-Console.WriteLine($"Enter {delimiter} separated numbers to add, or press Ctrl+C to exit:");
+Console.WriteLine("Enter numbers to add, or press Ctrl+C to exit:");
 
 while (true)
 {
