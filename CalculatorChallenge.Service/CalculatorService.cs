@@ -11,7 +11,17 @@ public class CalculatorService
         if (input.StartsWith("//"))
         {
             var delimiterEndIndex = input.IndexOf('\n');
-            delimiter = input.Substring(2, delimiterEndIndex - 2);
+            var delimiterPart = input.Substring(2, delimiterEndIndex - 2);
+
+            if (delimiterPart.StartsWith("[") && delimiterPart.EndsWith("]"))
+            {
+                delimiter = delimiterPart.Substring(1, delimiterPart.Length - 2);
+            }
+            else
+            {
+                delimiter = delimiterPart;
+            }
+
             input = input.Substring(delimiterEndIndex + 1);
         }
 

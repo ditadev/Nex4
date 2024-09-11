@@ -8,9 +8,9 @@ public class CalculatorChallengeShould
     private readonly CalculatorService _calculatorService = new();
 
     [Fact]
-    public void Add_CustomDelimiter_ReturnsSum()
+    public void Add_CustomDelimiterOfAnyLength_ReturnsSum()
     {
-        var result = _calculatorService.Add("//#\n2#5");
-        result.Should().Be(7);
+        var result = _calculatorService.Add("//[***]\n11***22***33");
+        result.Should().Be(66);
     }
 }
