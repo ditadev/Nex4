@@ -19,7 +19,8 @@ public class CalculatorService
                 if (parsedNumber < 0)
                     negatives.Add(parsedNumber);
 
-                sum += parsedNumber > 0 ? parsedNumber : 0;
+                if (parsedNumber <= 1000)
+                    sum += parsedNumber > 0 ? parsedNumber : 0;
             }
         }
 

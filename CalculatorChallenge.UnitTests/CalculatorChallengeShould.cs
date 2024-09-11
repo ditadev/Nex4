@@ -8,9 +8,9 @@ public class CalculatorChallengeShould
     private readonly CalculatorService _calculatorService = new();
 
     [Fact]
-    public void Add_MultipleNumbers_ReturnsSum()
+    public void Add_NumbersGreaterThan1000_IgnoredInSum()
     {
-        var exception = Assert.Throws<InvalidOperationException>(() =>  _calculatorService.Add("1,-2,3,-4"));
-        Assert.Equal("Negatives not allowed: " + "-2,-4", exception.Message);
+        var result = _calculatorService.Add("2,1001,6");
+        result.Should().Be(8);
     }
 }
