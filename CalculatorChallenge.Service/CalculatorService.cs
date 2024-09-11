@@ -9,9 +9,6 @@ public class CalculatorService
 
         var numbers = input.Split(',');
 
-        if (numbers.Length > 2)
-            throw new InvalidOperationException("More than two numbers are not allowed.");
-
         int sum = 0;
         foreach (var number in numbers)
         {
