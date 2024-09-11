@@ -8,9 +8,10 @@ public class CalculatorChallengeShould
     private readonly CalculatorService _calculatorService = new();
 
     [Fact]
-    public void Add_MultipleDelimitersOfAnyLength_ReturnsSum()
+    public void Add_DisplayFormula_ReturnsCorrectFormula()
     {
-        var result = _calculatorService.Add("//[*][!!][r9r]\n11r9r22*33!!44");
-        result.Should().Be(110);
+        var (result, formula) = _calculatorService.Add("2,,4,rrrr,1001,6");
+        result.Should().Be(12);
+        formula.Should().Be("2+0+4+0+0+6 = 12");
     }
 }

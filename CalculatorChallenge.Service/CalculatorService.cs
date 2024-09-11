@@ -2,10 +2,10 @@
 
 public class CalculatorService
 {
-    public int Add(string input)
+    public (int result, string formula) Add(string input)
     {
         if (string.IsNullOrEmpty(input))
-            return 0;
+            return (0, "0");
 
         var delimiters = new List<string> { ",", "\n" };
 
@@ -31,24 +31,29 @@ public class CalculatorService
         }
 
         var numbers = input.Split(delimiters.ToArray(), StringSplitOptions.None);
-
-        var negatives = new List<int>();
+        var formula = new List<string>();
         int sum = 0;
         foreach (var number in numbers)
         {
             if (int.TryParse(number, out int parsedNumber))
             {
-                if (parsedNumber < 0)
-                    negatives.Add(parsedNumber);
-
                 if (parsedNumber <= 1000)
-                    sum += parsedNumber > 0 ? parsedNumber : 0;
+                {
+                    sum += parsedNumber;
+                    formula.Add(parsedNumber.ToString());
+                }
+                else
+                {
+                    formula.Add("0");
+                }
+            }
+            else
+            {
+                formula.Add("0");
             }
         }
 
-        if (negatives.Any())
-            throw new InvalidOperationException("Negatives not allowed: " + string.Join(",", negatives));
-
-        return sum;
+        string resultFormula = string.Join("+", formula) + " = " + sum;
+        return (sum, resultFormula);
     }
 }
