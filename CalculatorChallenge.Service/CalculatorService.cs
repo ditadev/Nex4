@@ -7,7 +7,15 @@ public class CalculatorService
         if (string.IsNullOrEmpty(input))
             return 0;
 
-        var delimiters = new[] { ",", "\n" };
+        string delimiter = ",";
+        if (input.StartsWith("//"))
+        {
+            var delimiterEndIndex = input.IndexOf('\n');
+            delimiter = input.Substring(2, delimiterEndIndex - 2);
+            input = input.Substring(delimiterEndIndex + 1);
+        }
+
+        var delimiters = new[] { delimiter, "\n" };
         var numbers = input.Split(delimiters, StringSplitOptions.None);
 
         var negatives = new List<int>();

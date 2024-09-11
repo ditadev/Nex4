@@ -8,9 +8,9 @@ public class CalculatorChallengeShould
     private readonly CalculatorService _calculatorService = new();
 
     [Fact]
-    public void Add_NumbersGreaterThan1000_IgnoredInSum()
+    public void Add_CustomDelimiter_ReturnsSum()
     {
-        var result = _calculatorService.Add("2,1001,6");
-        result.Should().Be(8);
+        var result = _calculatorService.Add("//#\n2#5");
+        result.Should().Be(7);
     }
 }

@@ -1,5 +1,5 @@
 ﻿using CalculatorChallenge.Service;
 
 var calculate = new CalculatorService();
-int result = calculate.Add("2,1001,6");
+int result = calculate.Add("//#\n2#5");
 Console.WriteLine(result);
