@@ -7,7 +7,8 @@ public class CalculatorService
         if (string.IsNullOrEmpty(input))
             return 0;
 
-        string delimiter = ",";
+        var delimiters = new List<string> { ",", "\n" };
+
         if (input.StartsWith("//"))
         {
             var delimiterEndIndex = input.IndexOf('\n');
@@ -15,18 +16,21 @@ public class CalculatorService
 
             if (delimiterPart.StartsWith("[") && delimiterPart.EndsWith("]"))
             {
-                delimiter = delimiterPart.Substring(1, delimiterPart.Length - 2);
+                var delimiterTokens = delimiterPart.Split(new[] { "][" }, StringSplitOptions.None);
+                foreach (var token in delimiterTokens)
+                {
+                    delimiters.Add(token.Trim('[', ']'));
+                }
             }
             else
             {
-                delimiter = delimiterPart;
+                delimiters.Add(delimiterPart);
             }
 
             input = input.Substring(delimiterEndIndex + 1);
         }
 
-        var delimiters = new[] { delimiter, "\n" };
-        var numbers = input.Split(delimiters, StringSplitOptions.None);
+        var numbers = input.Split(delimiters.ToArray(), StringSplitOptions.None);
 
         var negatives = new List<int>();
         int sum = 0;
