@@ -1,13 +1,13 @@
 ﻿namespace CalculatorChallenge.Service;
 
-public class CalculatorService
+public class CalculatorService(string delimiter = ",", bool denyNegatives = true, int upperBound = 1000)
 {
     public (int result, string formula) Add(string input)
     {
         if (string.IsNullOrEmpty(input))
             return (0, "0");
 
-        var delimiters = new List<string> { ",", "\n" };
+        var delimiters = new List<string> { delimiter, "\n" };
 
         if (input.StartsWith("//"))
         {
@@ -32,12 +32,16 @@ public class CalculatorService
 
         var numbers = input.Split(delimiters.ToArray(), StringSplitOptions.None);
         var formula = new List<string>();
+        var negatives = new List<int>();
         int sum = 0;
         foreach (var number in numbers)
         {
             if (int.TryParse(number, out int parsedNumber))
             {
-                if (parsedNumber <= 1000)
+                if (parsedNumber < 0 && denyNegatives)
+                    negatives.Add(parsedNumber);
+
+                if (parsedNumber <= upperBound)
                 {
                     sum += parsedNumber;
                     formula.Add(parsedNumber.ToString());
@@ -52,6 +56,9 @@ public class CalculatorService
                 formula.Add("0");
             }
         }
+
+        if (negatives.Any())
+            throw new InvalidOperationException("Negatives not allowed: " + string.Join(",", negatives));
 
         string resultFormula = string.Join("+", formula) + " = " + sum;
         return (sum, resultFormula);
